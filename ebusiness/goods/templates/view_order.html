@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+           <li><a href="/user_info/">{{user}}</a></li>
+           <li><a href="/logout/">退出</a></li>
+         </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container theme-showcase" role="main">
+	  <div class="page-header">
+        <div id="navbar" class="navbar-collapse collapse">
+        </div><!--/.navbar-collapse -->
+      </div>
+	  <p>生成时间：{{orders.create_time}} 配货地址：{{address}} 总价钱：￥{{prices}}</p>
+
+	  <div class="row">
+        <div class="col-md-6">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>编号</th>
+				<th>拍卖品名称</th>
+				<th>我的报价</th>
+                <th>当前时间</th>
+                <th>截止时间</th>
+                <th>拍卖状态</th>
+				<th>删除</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for key in order %}
+                <tr>
+                  <td><a href="/view_goods/{{key.good_id}}/">{{ key.id }}</a></td>
+                  <td>{{ key.name }}</td>
+                  <td>￥{{ key.count }}</td>
+                  <td><script type="text/javascript">
+                      var t = new Date();
+                      document.write(t);</script></td>
+                  <td>{{ key.deadline }}</td>
+                  <td>
+                      <script>
+                          function randomnum(min, max) {
+                              var range = max - min;
+                              var rand = Math.random();
+                              var num = min + Math.floor(rand * range);
+                              return num;
+                          }
+                          var x = randomnum(0, 5);
+                          if (x < 4) document.write('进行中');
+                          else if (x < 5) document.write('竞拍成功');
+                          else document.write('竞拍失败');
+                          </script>
+                     </td>
+				  <td><a href="/delete_orders/{{ key.id }}/3/">删除</a></td>
+                </tr>
+             {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+{% endblock %}
