@@ -36,7 +36,6 @@ def register(request):
             password = (request.POST.get('password')).strip()           #获取密码信息
             #加密password
             password = util.md5(password)
-            #判断密码长度是否朝过50
             email = (request.POST.get('email')).strip()     #获取Email信息
             #查找数据库中是否存在相同用户名
             user_list = User.objects.filter(username=username)
